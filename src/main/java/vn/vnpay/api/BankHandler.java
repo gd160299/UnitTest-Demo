@@ -34,13 +34,7 @@ public class BankHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     }
 
     private void initializeRoutes() {
-        routeHandlers.put("POST /accounts", (ctx, request) -> {
-            try {
-                handleCreateAccount(ctx, request);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        routeHandlers.put("POST /accounts", this::handleCreateAccount);
         routeHandlers.put("POST /accounts/transfer", this::handleTransfer);
         routeHandlers.put("GET /accounts/{accountNumber}", this::handleGetAccount);
         routeHandlers.put("POST /accounts/{accountNumber}/deposit", this::handleDeposit);
